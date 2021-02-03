@@ -1,0 +1,28 @@
+|=== perl
+extension = 'pl'
+
+source_template =
+    |```
+    $| = 1;
+    use 5.010;
+    {code}
+    |```/
+
+chunk_wrapper =
+    |```
+    say STDOUT "\n{stdout_delim}";
+    say STDERR "\n{stderr_delim}";
+    {code}
+    |```/
+
+inline_expression_formatter =
+    |```
+    $_codebraid_temp_{temp_suffix} = {code};
+    print "\n{stdout_delim}";
+    print STDERR "\n{stderr_delim}\n";
+    print $_codebraid_temp_{temp_suffix};
+    |```/
+
+error_patterns = 'Error:'
+warning_patterns = 'Warning:'
+line_number_patterns = ['line {number}', ':{number}:']
